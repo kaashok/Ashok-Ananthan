@@ -1,0 +1,25 @@
+Public Function PrimeNumber()
+    Dim i As Integer, j As Integer
+    Dim b As Boolean, output As String
+    Dim n As Integer
+    
+    n = 11 'InputBox("Enter the Number")
+    
+    For i = 1 To n
+        b = True
+        
+        If i = 1 Then
+            Debug.Print i
+        Else
+            For j = 2 To (i / 2)
+                If i Mod j = 0 Then
+                    b = False
+                    Exit For
+                End If
+            Next j
+            If b = True Then
+                Debug.Print i
+            End If
+        End If
+    Next i
+End Function
