@@ -1,0 +1,102 @@
+Function ndigittoword(num As Double) As String
+    Dim length As Integer, a As Double, b As Double
+    Dim result As String
+    
+    length = Len(CStr(num))
+    
+    If (length <= 2) Then
+        ndigittoword = twodigittoword(num)
+    ElseIf (length = 3) Then
+        a = num Mod 100
+        If a <> 0 Then
+            result = twodigittoword(a)
+        End If
+        b = num \ 100
+        result = onedigittoword(b) & " hundred" & IIf(a <> 0, " and" & result, "")
+        ndigittoword = result
+    ElseIf (length = 4) Then
+        a = num Mod 1000
+        result = ndigittoword(a)
+        b = num \ 1000
+        result = onedigittoword(b) & " Thousand " & result
+        ndigittoword = result
+    End If
+End Function
+
+
+Function twodigittoword(num As Double) As String
+    Dim a(17) As String, result As String
+    Dim length As Integer, last As Double, first As Double
+    a(0) = "eleven": a(1) = "twelve": a(2) = "thirteen": a(3) = "fourteen": a(4) = "fifteen"
+    a(5) = "sixteen": a(6) = "seventeen": a(7) = "eighteen": a(8) = "nineteen": a(9) = "twenty"
+    a(10) = " thirty ": a(11) = " fourty ": a(12) = " fifty ": a(13) = " sixty ": a(14) = " seventy "
+    a(15) = " eighty ": a(16) = " ninty "
+    length = Len(CStr(num))
+    If length <= 1 Then
+        twodigittoword = onedigittoword(num)
+        Exit Function
+    End If
+    If length = 2 And num < 21 Then
+        Select Case num
+            Case 10:
+                twodigittoword = "ten"
+            Case 11:
+                twodigittoword = a(0)
+            Case 12:
+                twodigittoword = a(1)
+            Case 13:
+                twodigittoword = a(2)
+            Case 14:
+                twodigittoword = a(3)
+            Case 15:
+                twodigittoword = a(4)
+            Case 16:
+                twodigittoword = a(5)
+            Case 17:
+                twodigittoword = a(6)
+            Case 18:
+                twodigittoword = a(7)
+            Case 19:
+                twodigittoword = a(8)
+            Case 20:
+                twodigittoword = a(9)
+        End Select
+    Else
+       last = num Mod 10
+       result = onedigittoword(last)
+       first = num \ 10
+       result = a(7 + first) & result
+       twodigittoword = result
+    End If
+End Function
+
+Function onedigittoword(num As Double) As String
+    Dim a(8) As String
+        
+    a(0) = "one": a(1) = "two": a(2) = "three": a(3) = "four": a(4) = "five"
+    a(5) = "six": a(6) = "seven": a(7) = "eight": a(8) = "nine"
+    If num > 0 Then
+        Select Case num
+            Case 1:
+                onedigittoword = a(0)
+            Case 2:
+                onedigittoword = a(1)
+            Case 3:
+                onedigittoword = a(2)
+            Case 4:
+                onedigittoword = a(3)
+            Case 5:
+                onedigittoword = a(4)
+            Case 6:
+                onedigittoword = a(5)
+            Case 7:
+                onedigittoword = a(6)
+            Case 8:
+                onedigittoword = a(7)
+            Case 9:
+                onedigittoword = a(8)
+            Case Else
+                onedigittoword = "zero"
+            End Select
+    End If
+End Function
